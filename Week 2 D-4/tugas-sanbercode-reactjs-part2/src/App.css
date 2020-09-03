@@ -1,0 +1,50 @@
+.outer {
+  max-width: 550px;
+  margin: 20px auto;
+  padding: 0;
+}
+
+.container {
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 15px;
+}
+
+.textCentered {
+  text-align:center
+}
+
+.headerOuter {
+  display: block;
+  margin-bottom: 1em;
+}
+
+.headerInner {
+  display: inline-block;
+  width: 150px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.inlineBlock {
+  display: inline-block;
+}
+
+.mainOuter {
+  display: block;
+  margin-bottom: 1em;
+}
+
+.mainHeaderContainer {
+  display: inline-block;
+  width: 150px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.submit {
+  background: white;
+  border: 2px solid linear-gradient(to right, red, purple);
+  cursor: pointer;
+  border-radius: 30px;
+}
