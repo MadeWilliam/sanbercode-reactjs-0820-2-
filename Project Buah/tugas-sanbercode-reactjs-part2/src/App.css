@@ -11,7 +11,7 @@
 }
 
 .textCentered {
-  text-align:center
+  text-align: center
 }
 
 .headerOuter {
@@ -47,4 +47,26 @@
   border: 2px solid linear-gradient(to right, red, purple);
   cursor: pointer;
   border-radius: 30px;
+}
+
+table {
+  width: 100%;
+  border: 2px solid black;
+}
+
+th, td {
+  padding: 8px;
+}
+
+th {
+  text-align: center;
+  background-color: lightgrey;
+}
+
+th:first-of-type {
+  width: 300px;
+}
+
+td {
+  background-color: #FF7F50
 }
