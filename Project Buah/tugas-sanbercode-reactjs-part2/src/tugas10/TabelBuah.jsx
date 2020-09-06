@@ -25,7 +25,7 @@ class TabelBuah extends Component {
                         {
                             dataHargaBuah.map((el,i) => {
                                 return (
-                                    <DataBuah key={i} name={el.nama} price={el.harga} weight={el.berat} />
+                                    <DataBuah key={i} item={el} />
                                 )
                             })
                         }
