@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import FormBuah from './tugas9/FormBuah.jsx';
-import TabelBuah from './tugas10/TabelBuah.jsx';
+import AppBuah from './AppBuah.jsx';
+import Countdown from './tugas11/Countdown.jsx';
+import './App.css';
 
 class App extends Component {
     render() {
         return (
-            <div>
-                <FormBuah></FormBuah>
-                <TabelBuah></TabelBuah>
+            <div className="outer container">
+                <Countdown/>
+                <AppBuah/>
             </div>
         );
     }
