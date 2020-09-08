@@ -43,8 +43,42 @@
 }
 
 .submit {
-  background: white;
+  background: greenyellow;
   border: 2px solid linear-gradient(to right, red, purple);
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.btn-edit {
+  min-width: 40%;
+  color: white;
+  background: blue;
+  border: 2px solid linear-gradient(to right, red, purple);
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.btn-delete {
+  color: white;
+  background: red;
+  border: 2px solid linear-gradient(to right, red, purple);
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.btn-update {
+  color: white;
+  background: green;
+  border: 2px solid linear-gradient(to right, green, purple);
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.btn-cancel {
+  font-weight: bold;
+  background: yellow;
+  margin-left: 10px;
+  border: 2px solid linear-gradient(to right, green, purple);
   cursor: pointer;
   border-radius: 30px;
 }
@@ -64,7 +98,7 @@ th {
 }
 
 th:first-of-type {
-  width: 300px;
+  width: 200px;
 }
 
 td {
