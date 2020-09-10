@@ -1,63 +1,56 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const DaftarBuah = () => {
-  const [daftarBuah, setDaftarBuah] = useState([
-    { nama: "Semangka", harga: 10000, berat: 1000 },
-    { nama: "Anggur", harga: 40000, berat: 500 },
-    { nama: "Strawberry", harga: 30000, berat: 400 },
-    { nama: "Jeruk", harga: 30000, berat: 1000 },
-    { nama: "Mangga", harga: 30000, berat: 500 }
-  ])
-  const [inputName, setInputName] = useState("")
-  const [inputHarga, setInputHarga] = useState("")
-  const [inputBerat, setInputBerat] = useState(0)
-  /// array tidak punya index -1
-  const [indexOfForm, setIndexOfForm] = useState(-1)
-  
+  const [daftarBuah, setDaftarBuah] = useState(null)
+  const [input, setInput] = useState({ name: "", price: "", weight: 0, id: null })
+
+  useEffect(() => {
+    if (daftarBuah === null) {
+      axios.get(`http://backendexample.sanbercloud.com/api/fruits`)
+        .then(res => {
+          setDaftarBuah(res.data.map(el => { return { id: el.id, name: el.name, price: el.price, weight: el.weight } }))
+        })
+    }
+  }, [daftarBuah])
 
   const handleDelete = (event) => {
-    let index = event.target.value
-    let newDaftarBuah = daftarBuah
-    let editedDataBuah = newDaftarBuah[indexOfForm]
-    newDaftarBuah.splice(index, 1)
+    let idDataBuah = parseInt(event.target.value)
 
-    if (editedDataBuah !== undefined) {
-      // array findIndex baru ada di ES6
-      var newIndex = newDaftarBuah.findIndex((el) => el === editedDataBuah)
-      setDaftarBuah(newDaftarBuah)
-      setIndexOfForm(newIndex)
+    let newdaftarBuah = daftarBuah.filter(el => el.id !== idDataBuah)
 
-    } else {
-      setDaftarBuah(newDaftarBuah)
-    }
+    axios.delete(`http://backendexample.sanbercloud.com/api/fruits/${idDataBuah}`)
+      .then(res => {
+        console.log(res)
+      })
+
+    setDaftarBuah([...newdaftarBuah])
 
   }
 
   const handleEdit = (event) => {
-    let index = event.target.value
-    let dataBuah = daftarBuah[index]
-    setInputName(dataBuah.nama)
-    setInputHarga(dataBuah.harga)
-    setInputBerat(dataBuah.berat)
-    setIndexOfForm(index)
+    let idDataBuah = parseInt(event.target.value)
+    let dataBuah = daftarBuah.find(x => x.id === idDataBuah)
+    setInput({ name: dataBuah.name, price: dataBuah.price, weight: dataBuah.weight, id: idDataBuah })
   }
 
   const handleChange = (event) => {
     let typeOfInput = event.target.name
+
     switch (typeOfInput) {
       case "name":
         {
-          setInputName(event.target.value);
+          setInput({ ...input, name: event.target.value });
           break
         }
-      case "harga":
+      case "price":
         {
-          setInputHarga(event.target.value);
+          setInput({ ...input, price: event.target.value });
           break
         }
-      case "berat":
+      case "weight":
         {
-          setInputBerat(event.target.value);
+          setInput({ ...input, weight: event.target.value });
           break
         }
       default:
@@ -69,24 +62,35 @@ const DaftarBuah = () => {
     // menahan submit
     event.preventDefault()
 
-    let nama = inputName
-    let harga = inputHarga.toString()
-    let berat = inputBerat
+    let name = input.name
+    let price = input.price.toString()
 
-    if (nama.replace(/\s/g, '') !== "" && harga.replace(/\s/g, '') !== "") {
-      let newDaftarBuah = daftarBuah
-      let index = indexOfForm
 
-      if (index === -1) {
-        newDaftarBuah = [...newDaftarBuah, { nama, harga, berat }]
-      } else {
-        newDaftarBuah[index] = { nama, harga, berat }
-      }
-      setDaftarBuah(newDaftarBuah)
-      setInputName("")
-      setInputHarga("")
-      setInputBerat(0)
+    if (input.id === null) {
+      axios.post(`http://backendexample.sanbercloud.com/api/fruits`, { name, price, weight: input.weight })
+        .then(res => {
+          setDaftarBuah([
+            ...daftarBuah,
+            {
+              id: res.data.id,
+              name,
+              price,
+              weight: input.weight
+            }])
+        })
+    } else {
+      axios.put(`http://backendexample.sanbercloud.com/api/fruits/${input.id}`, { name, price, weight: input.weight })
+        .then(() => {
+          let dataBuah = daftarBuah.find(el => el.id === input.id)
+          dataBuah.name = name
+          dataBuah.price = price
+          dataBuah.weight = input.weight
+          setDaftarBuah([...daftarBuah])
+        })
     }
+
+    // reset input form to default
+    setInput({ name: "", price: "", weight: 0, id: null })
 
   }
 
@@ -104,17 +108,19 @@ const DaftarBuah = () => {
           </tr>
         </thead>
         <tbody>
+
           {
-            daftarBuah.map((item, index) => {
+            daftarBuah !== null && daftarBuah.map((item, index) => {
               return (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{item.nama}</td>
-                  <td>{item.harga}</td>
-                  <td>{item.berat / 1000} kg</td>
-                  <td style={{ justifyContent: "space-evenly", display: "flex" }}>
-                    <button onClick={handleEdit} value={index}>Edit</button>
-                    <button onClick={handleDelete} value={index}>Delete</button>
+                  <td>{item.name}</td>
+                  <td>{item.price}</td>
+                  <td>{item.weight / 1000} Kg</td>
+                  <td style={{display: "flex", justifyContent: "space-evenly"}}>
+                    <button onClick={handleEdit} value={item.id}>Edit</button>
+                      &nbsp;
+                      <button onClick={handleDelete} value={item.id}>Delete</button>
                   </td>
                 </tr>
               )
@@ -124,25 +130,26 @@ const DaftarBuah = () => {
       </table>
       {/* Form */}
       <h1>Form Daftar Harga Buah</h1>
+
       <div style={{ width: "50%", margin: "0 auto", display: "block" }}>
         <div style={{ border: "1px solid #aaa", padding: "20px" }}>
           <form onSubmit={handleSubmit}>
             <label style={{ float: "left" }}>
               Nama:
-              </label>
-            <input style={{ float: "right" }} type="text" name="name" value={inputName} onChange={handleChange} />
+            </label>
+            <input style={{ float: "right" }} type="text" required name="name" value={input.name} onChange={handleChange} />
             <br />
             <br />
             <label style={{ float: "left" }}>
               Harga:
-              </label>
-            <input style={{ float: "right" }} type="text" name="harga" value={inputHarga} onChange={handleChange} />
+            </label>
+            <input style={{ float: "right" }} type="text" required name="price" value={input.price} onChange={handleChange} />
             <br />
             <br />
             <label style={{ float: "left" }}>
               Berat (dalam gram):
-              </label>
-            <input style={{ float: "right" }} type="number" name="berat" value={inputBerat} onChange={handleChange} />
+            </label>
+            <input style={{ float: "right" }} type="number" required name="weight" value={input.weight} onChange={handleChange} />
             <br />
             <br />
             <div style={{ width: "100%", paddingBottom: "20px" }}>
