@@ -1,39 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import { BuahContext } from './BuahContext';
 
 export const FormBuah = () => {
-    const [daftarBuah, setDaftarBuah] = useContext(BuahContext)
-    const [input, setInput] = useState({ name: "", price: "", weight: 0, id: null })
-
-    useEffect(() => {
-        if (daftarBuah === null) {
-            axios.get(`http://backendexample.sanbercloud.com/api/fruits`)
-                .then(res => {
-                    setDaftarBuah(res.data.map(el => { return { id: el.id, name: el.name, price: el.price, weight: el.weight } }))
-                })
-        }
-    }, [daftarBuah])
-
-    const handleDelete = (event) => {
-        let idDataBuah = parseInt(event.target.value)
-
-        let newdaftarBuah = daftarBuah.filter(el => el.id !== idDataBuah)
-
-        axios.delete(`http://backendexample.sanbercloud.com/api/fruits/${idDataBuah}`)
-            .then(res => {
-                console.log(res)
-            })
-
-        setDaftarBuah([...newdaftarBuah])
-
-    }
-
-    const handleEdit = (event) => {
-        let idDataBuah = parseInt(event.target.value)
-        let dataBuah = daftarBuah.find(x => x.id === idDataBuah)
-        setInput({ name: dataBuah.name, price: dataBuah.price, weight: dataBuah.weight, id: idDataBuah })
-    }
+    const [daftarBuah, setDaftarBuah, input, setInput] = useContext(BuahContext)
 
     const handleChange = (event) => {
         let typeOfInput = event.target.name
@@ -98,38 +68,6 @@ export const FormBuah = () => {
 
     return (
         <div>
-            <h1>Daftar Harga Buah</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th style={{ width: "20px" }}>No</th>
-                        <th>Nama</th>
-                        <th>Harga</th>
-                        <th>Berat</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    {
-                        daftarBuah !== null && daftarBuah.map((item, index) => {
-                            return (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{item.name}</td>
-                                    <td>{item.price}</td>
-                                    <td>{item.weight / 1000} Kg</td>
-                                    <td style={{ display: "flex", justifyContent: "space-evenly" }}>
-                                        <button onClick={handleEdit} value={item.id}>Edit</button>
-                      &nbsp;
-                      <button onClick={handleDelete} value={item.id}>Delete</button>
-                                    </td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
             {/* Form */}
             <h1>Form Daftar Harga Buah</h1>
 
