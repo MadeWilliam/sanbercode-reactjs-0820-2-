@@ -72,28 +72,22 @@ export const FormBuah = () => {
             <h1>Form Daftar Harga Buah</h1>
 
             <div style={{ width: "50%", margin: "0 auto", display: "block" }}>
-                <div style={{ border: "1px solid #aaa", padding: "20px" }}>
+                <div className="group" style={{ border: "1px solid #aaa", padding: "20px" }}>
                     <form onSubmit={handleSubmit}>
-                        <label style={{ float: "left" }}>
-                            Nama:
-            </label>
+                        <label style={{ float: "left" }}> Nama: </label>
                         <input style={{ float: "right" }} type="text" required name="name" value={input.name} onChange={handleChange} />
                         <br />
                         <br />
-                        <label style={{ float: "left" }}>
-                            Harga:
-            </label>
+                        <label style={{ float: "left" }}> Harga: </label>
                         <input style={{ float: "right" }} type="text" required name="price" value={input.price} onChange={handleChange} />
                         <br />
                         <br />
-                        <label style={{ float: "left" }}>
-                            Berat (dalam gram):
-            </label>
+                        <label style={{ float: "left" }}> Berat (dalam gram): </label>
                         <input style={{ float: "right" }} type="number" required name="weight" value={input.weight} onChange={handleChange} />
                         <br />
                         <br />
-                        <div style={{ width: "100%", paddingBottom: "20px" }}>
-                            <button style={{ float: "right" }}>submit</button>
+                        <div style={{ display: "flex", justifyContent: "flex-end", width: "100%",paddingBottom: "20px" }}>
+                            <button className="submit">submit</button>
                         </div>
                     </form>
                 </div>

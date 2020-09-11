@@ -197,7 +197,7 @@ class FormBuah2 extends Component {
         this.handlePrToggleEdit()
     }
 
-    
+
     handlePrDelete = (key) => {
         console.log("handlePrDelete");
         console.log(key);
@@ -206,281 +206,289 @@ class FormBuah2 extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <h1 className="textCentered" style={{ color: "blue" }}>{("Tugas 12".toLocaleUpperCase())}</h1>
-                <h1>Tabel Harga Buah</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style={{ width: "20px" }}>No</th>
-                            <th>Nama</th>
-                            <th>Harga (kg)</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.state.fruitsPriceList.map((el, index) => {
-                                return (
-                                    <tr>
-                                        <td>{index + 1}</td>
-                                        <td>{el.fruitName}</td>
-                                        <td>{el.pricePerGram}</td>
-                                        <td style={{ display: "flex", justifyContent: "space-evenly" }}>
-                                            {!this.state.isPrEdit &&
-                                                <button className="btn-edit" onClick={() => this.handlePrEdit(el)}>Edit</button>
-                                            }
-                                            <button className="btn-delete" onClick={() => this.handlePrDelete(el.key)}>Delete</button>
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table>
+                <div style={{ display: "flex", minWidth: "1000px", justifyContent: "space-evenly"}}>
+                    <div>
+                        <h1>Tabel Harga Buah</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style={{ width: "20px" }}>No</th>
+                                    <th>Nama</th>
+                                    <th>Harga (kg)</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    this.state.fruitsPriceList.map((el, index) => {
+                                        return (
+                                            <tr>
+                                                <td>{index + 1}</td>
+                                                <td>{el.fruitName}</td>
+                                                <td>{el.pricePerGram}</td>
+                                                <td style={{ display: "flex", justifyContent: "space-evenly" }}>
+                                                    {!this.state.isPrEdit &&
+                                                        <button className="btn-edit" onClick={() => this.handlePrEdit(el)}>Edit</button>
+                                                    }
+                                                    <button className="btn-delete" onClick={() => this.handlePrDelete(el.key)}>Delete</button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </table>
 
 
-                <h1>Form Harga Buah</h1>
-                {/* Form */}
-                { !this.state.isPrEdit &&
-                    <form onSubmit={this.handlePrSubmit}>
-                        <div className="container">
-                            <h1 className="textCentered">Tambah Harga Buah</h1>
-                            <div>
-                                <div className="headerOuter">
-                                    <label htmlFor="prName" className="headerInner">Nama Buah:</label>
-                                    < input className="inlineBlock" type="text" name="prFruitName" id="prName" value={this.state.inputPrFruitName} onChange={this.handlePrFruitChange} placeholder="Tulis nama buah di sini" required />
-                                </div>
-                                <div className="headerOuter">
-                                    <label htmlFor="prPrice" className="headerInner"> Harga per kg: </label>
-                                    < input className="inlineBlock" type="number" name="prFruitPrice" id="prPrice" value={this.state.inputPrFruitPrice} onChange={this.handlePrFruitPriceChange} required />
-                                </div>
-                                <button className="submit">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-                }
-
-                {/* Form Update */}
-                { this.state.isPrEdit &&
-                    <form onSubmit={this.handlePrUpdate}>
-                        <div className="container">
-                            <h1 className="textCentered">Edit Harga Buah</h1>
-                            <div>
-                                <div className="headerOuter">
-                                    <label htmlFor="prName" className="headerInner">Nama Buah: </label>
-                                < input className="inlineBlock" type="text" name="updatedPrFruitName" id="prName" defaultValue={this.state.defaultPrFruitName} onChange={this.handlePrFruitChange} placeholder="Tulis nama buah di sini" required />
-                                </div>
-                                <div className="headerOuter">
-                                    <label htmlFor="prPrice" className="headerInner">Harga per kg: </label>
-                                < input className="inlineBlock" type="number" name="updatedPrFruitPrice" id="prPrice" defaultValue={this.state.defaultPrFruitPrice} onChange={this.handlePrFruitPriceChange} placeholder="Harga dalam rupiah" required />
-                                </div>
-                                <button className="btn-update">Update</button>
-                                <button className="btn-cancel" onClick={() => this.handlePrToggleEdit()}>Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                }
-
-                <h1>Tabel Pembelian Buah</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            {/* <th style={{ width: "20px" }}>No</th> */}
-                            <th style={{ width: "50px" }}>Pelanggan</th>
-                            <th>Nama</th>
-                            <th>Harga</th>
-                            <th>Berat</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.state.fruits.map((fruit, index) => {
-                                return (
-                                    <tr>
-                                        {/* <td>{index + 1}</td> */}
-                                        <td>{fruit.pelanggan}</td>
-                                        <td>{fruit.name}</td>
-                                        <td>{fruit.price}</td>
-                                        <td>{fruit.weight / 1000} kg</td>
-                                        <td style={{ display: "flex", justifyContent: "space-evenly" }}>
-                                            {!this.state.isEdit &&
-                                                <button className="btn-edit" onClick={() => this.handleEdit(fruit)}>Edit</button>
-                                            }
-                                            <button className="btn-delete" onClick={() => this.handleDelete(fruit.key)}>Delete</button>
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table>
-
-                <h1>Form Pembelian Buah</h1>
-                {/* Form */}
-                {!this.state.isEdit &&
-                    <form onSubmit={this.handleSubmit}>
-                        <div className="container">
-                            <h1 className="textCentered">Tambah Buah</h1>
-                            <div>
-                                <div className="headerOuter">
-                                    <label htmlFor="name" className="headerInner">Nama Pelanggan:</label>
-                                    < input className="inlineBlock" type="text" name="name" id="name" value={this.state.inputName} onChange={this.handleNameChange} placeholder="Tulis nama kamu di sini" required />
-                                </div>
-                                <div className="mainOuter">
-                                    <div className="mainHeaderContainer"> Daftar Item: </div>
-                                    <div className="inlineBlock">
-                                        <input type="radio"
-                                            id="semangka"
-                                            name="frName"
-                                            value="Semangka"
-                                            checked={this.state.selectedFruit === "Semangka"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="semangka">Semangka</label><br />
-                                        <input type="radio"
-                                            id="jeruk"
-                                            name="frName"
-                                            value="Jeruk"
-                                            checked={this.state.selectedFruit === "Jeruk"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="jeruk">Jeruk</label><br />
-                                        <input type="radio"
-                                            id="nanas"
-                                            name="frName"
-                                            value="Nanas"
-                                            checked={this.state.selectedFruit === "Nanas"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="nanas">Nanas</label><br />
-                                        <input type="radio"
-                                            id="salak"
-                                            name="frName"
-                                            value="Salak"
-                                            checked={this.state.selectedFruit === "Salak"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="salak">Salak</label><br />
-                                        <input type="radio"
-                                            id="anggur"
-                                            name="frName"
-                                            value="Anggur"
-                                            checked={this.state.selectedFruit === "Anggur"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="anggur">Anggur</label><br />
-                                        <input type="radio"
-                                            id="strawberry"
-                                            name="frName"
-                                            value="Strawberry"
-                                            checked={this.state.selectedFruit === "Strawberry"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="strawberry">Strawberry</label><br />
-                                        <input type="radio"
-                                            id="mangga"
-                                            name="frName"
-                                            value="Mangga"
-                                            checked={this.state.selectedFruit === "Mangga"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="mangga">Mangga</label><br />
+                        <h1>Form Harga Buah</h1>
+                        {/* Form */}
+                        {!this.state.isPrEdit &&
+                            <form onSubmit={this.handlePrSubmit}>
+                                <div className="container">
+                                    <h1 className="textCentered">Tambah Harga Buah</h1>
+                                    <div>
+                                        <div className="headerOuter">
+                                            <label htmlFor="prName" className="headerInner">Nama Buah:</label>
+                                            < input className="inlineBlock" type="text" name="prFruitName" id="prName" value={this.state.inputPrFruitName} onChange={this.handlePrFruitChange} placeholder="Tulis nama buah di sini" required />
+                                        </div>
+                                        <div className="headerOuter">
+                                            <label htmlFor="prPrice" className="headerInner"> Harga per kg: </label>
+                                            < input className="inlineBlock" type="number" name="prFruitPrice" id="prPrice" value={this.state.inputPrFruitPrice} onChange={this.handlePrFruitPriceChange} required />
+                                        </div>
+                                        <button className="submit">Submit</button>
                                     </div>
                                 </div>
-                                <div className="headerOuter">
-                                    <label htmlFor="berat" className="headerInner"> Berat buah: </label>
-                                    < input className="inlineBlock" type="number" name="berat" id="berat" value={this.state.inputFruitWeight} onChange={this.handleWeightChange} placeholder="dalam gram" required />
-                                </div>
-                                <button className="submit">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-                }
+                            </form>
+                        }
 
-                {/* Form Update */}
-                {
-                    this.state.isEdit &&
-                    <form onSubmit={this.handleUpdate}>
-                        <div className="container">
-                            <h1 className="textCentered">Edit Buah</h1>
-                            <div>
-                                <div className="headerOuter">
-                                    <label htmlFor="name" className="headerInner">Nama Pelanggan:</label>
-                                    < input className="inlineBlock" type="text" name="updatedNama" id="name" defaultValue={this.state.defaultName} onChange={this.handleNameChange} placeholder="Tulis nama kamu di sini" required />
-                                </div>
-                                <div className="mainOuter">
-                                    <div className="mainHeaderContainer"> Daftar Item: </div>
-                                    <div className="inlineBlock">
-                                        <input type="radio"
-                                            id="semangka"
-                                            name="updatedFrName"
-                                            value="Semangka"
-                                            defaultChecked={this.state.defaultSelectedFruit === "Semangka"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="semangka">Semangka</label><br />
-                                        <input type="radio"
-                                            id="jeruk"
-                                            name="updatedFrName"
-                                            value="Jeruk"
-                                            defaultChecked={this.state.defaultSelectedFruit === "Jeruk"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="jeruk">Jeruk</label><br />
-                                        <input type="radio"
-                                            id="nanas"
-                                            name="updatedFrName"
-                                            value="Nanas"
-                                            defaultChecked={this.state.defaultSelectedFruit === "Nanas"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="nanas">Nanas</label><br />
-                                        <input type="radio"
-                                            id="salak"
-                                            name="updatedFrName"
-                                            value="Salak"
-                                            defaultChecked={this.state.defaultSelectedFruit === "Salak"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="salak">Salak</label><br />
-                                        <input type="radio"
-                                            id="anggur"
-                                            name="updatedFrName"
-                                            value="Anggur"
-                                            defaultChecked={this.state.defaultSelectedFruit === "Anggur"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="anggur">Anggur</label><br />
-                                        <input type="radio"
-                                            id="strawberry"
-                                            name="updatedFrName"
-                                            value="Strawberry"
-                                            defaultChecked={this.state.defaultSelectedFruit === "Strawberry"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="strawberry">Strawberry</label><br />
-                                        <input type="radio"
-                                            id="mangga"
-                                            name="updatedFrName"
-                                            value="Mangga"
-                                            defaultChecked={this.state.selectedFruit === "Mangga"}
-                                            onChange={this.handleFruitChange}
-                                        />
-                                        <label htmlFor="mangga">Mangga</label><br />
+                        {/* Form Update */}
+                        {this.state.isPrEdit &&
+                            <form onSubmit={this.handlePrUpdate}>
+                                <div className="container">
+                                    <h1 className="textCentered">Edit Harga Buah</h1>
+                                    <div>
+                                        <div className="headerOuter">
+                                            <label htmlFor="prName" className="headerInner">Nama Buah: </label>
+                                            < input className="inlineBlock" type="text" name="updatedPrFruitName" id="prName" defaultValue={this.state.defaultPrFruitName} onChange={this.handlePrFruitChange} placeholder="Tulis nama buah di sini" required />
+                                        </div>
+                                        <div className="headerOuter">
+                                            <label htmlFor="prPrice" className="headerInner">Harga per kg: </label>
+                                            < input className="inlineBlock" type="number" name="updatedPrFruitPrice" id="prPrice" defaultValue={this.state.defaultPrFruitPrice} onChange={this.handlePrFruitPriceChange} placeholder="Harga dalam rupiah" required />
+                                        </div>
+                                        <button className="btn-update">Update</button>
+                                        <button className="btn-cancel" onClick={() => this.handlePrToggleEdit()}>Cancel</button>
                                     </div>
                                 </div>
-                                <div className="headerOuter">
-                                    <label htmlFor="berat" className="headerInner"> Berat buah: </label>
-                                    < input className="inlineBlock" type="number" name="updatedBerat" id="berat" defaultValue={this.state.defaultFruitWeight} onChange={this.handleWeightChange} placeholder="dalam gram" required />
+                            </form>
+                        }
+
+                    </div>
+
+                    <div>
+
+                        <h1>Tabel Pembelian Buah</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    {/* <th style={{ width: "20px" }}>No</th> */}
+                                    <th style={{ width: "50px" }}>Pelanggan</th>
+                                    <th>Nama</th>
+                                    <th>Harga</th>
+                                    <th>Berat</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    this.state.fruits.map((fruit, index) => {
+                                        return (
+                                            <tr>
+                                                {/* <td>{index + 1}</td> */}
+                                                <td>{fruit.pelanggan}</td>
+                                                <td>{fruit.name}</td>
+                                                <td>{fruit.price}</td>
+                                                <td>{fruit.weight / 1000} kg</td>
+                                                <td style={{ display: "flex", justifyContent: "space-evenly" }}>
+                                                    {!this.state.isEdit &&
+                                                        <button className="btn-edit" onClick={() => this.handleEdit(fruit)}>Edit</button>
+                                                    }
+                                                    <button className="btn-delete" onClick={() => this.handleDelete(fruit.key)}>Delete</button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </table>
+
+                        <h1>Form Pembelian Buah</h1>
+                        {/* Form */}
+                        {!this.state.isEdit &&
+                            <form onSubmit={this.handleSubmit}>
+                                <div className="container">
+                                    <h1 className="textCentered">Tambah Buah</h1>
+                                    <div>
+                                        <div className="headerOuter">
+                                            <label htmlFor="name" className="headerInner">Nama Pelanggan:</label>
+                                            < input className="inlineBlock" type="text" name="name" id="name" value={this.state.inputName} onChange={this.handleNameChange} placeholder="Tulis nama kamu di sini" required />
+                                        </div>
+                                        <div className="mainOuter">
+                                            <div className="mainHeaderContainer"> Daftar Item: </div>
+                                            <div className="inlineBlock">
+                                                <input type="radio"
+                                                    id="semangka"
+                                                    name="frName"
+                                                    value="Semangka"
+                                                    checked={this.state.selectedFruit === "Semangka"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="semangka">Semangka</label><br />
+                                                <input type="radio"
+                                                    id="jeruk"
+                                                    name="frName"
+                                                    value="Jeruk"
+                                                    checked={this.state.selectedFruit === "Jeruk"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="jeruk">Jeruk</label><br />
+                                                <input type="radio"
+                                                    id="nanas"
+                                                    name="frName"
+                                                    value="Nanas"
+                                                    checked={this.state.selectedFruit === "Nanas"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="nanas">Nanas</label><br />
+                                                <input type="radio"
+                                                    id="salak"
+                                                    name="frName"
+                                                    value="Salak"
+                                                    checked={this.state.selectedFruit === "Salak"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="salak">Salak</label><br />
+                                                <input type="radio"
+                                                    id="anggur"
+                                                    name="frName"
+                                                    value="Anggur"
+                                                    checked={this.state.selectedFruit === "Anggur"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="anggur">Anggur</label><br />
+                                                <input type="radio"
+                                                    id="strawberry"
+                                                    name="frName"
+                                                    value="Strawberry"
+                                                    checked={this.state.selectedFruit === "Strawberry"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="strawberry">Strawberry</label><br />
+                                                <input type="radio"
+                                                    id="mangga"
+                                                    name="frName"
+                                                    value="Mangga"
+                                                    checked={this.state.selectedFruit === "Mangga"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="mangga">Mangga</label><br />
+                                            </div>
+                                        </div>
+                                        <div className="headerOuter">
+                                            <label htmlFor="berat" className="headerInner"> Berat buah: </label>
+                                            < input className="inlineBlock" type="number" name="berat" id="berat" value={this.state.inputFruitWeight} onChange={this.handleWeightChange} placeholder="dalam gram" required />
+                                        </div>
+                                        <button className="submit">Submit</button>
+                                    </div>
                                 </div>
-                                <button className="btn-update">Update</button>
-                                <button className="btn-cancel" onClick={() => this.handleToggleEdit()}>Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                }
+                            </form>
+                        }
+
+                        {/* Form Update */}
+                        {
+                            this.state.isEdit &&
+                            <form onSubmit={this.handleUpdate}>
+                                <div className="container">
+                                    <h1 className="textCentered">Edit Buah</h1>
+                                    <div>
+                                        <div className="headerOuter">
+                                            <label htmlFor="name" className="headerInner">Nama Pelanggan:</label>
+                                            < input className="inlineBlock" type="text" name="updatedNama" id="name" defaultValue={this.state.defaultName} onChange={this.handleNameChange} placeholder="Tulis nama kamu di sini" required />
+                                        </div>
+                                        <div className="mainOuter">
+                                            <div className="mainHeaderContainer"> Daftar Item: </div>
+                                            <div className="inlineBlock">
+                                                <input type="radio"
+                                                    id="semangka"
+                                                    name="updatedFrName"
+                                                    value="Semangka"
+                                                    defaultChecked={this.state.defaultSelectedFruit === "Semangka"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="semangka">Semangka</label><br />
+                                                <input type="radio"
+                                                    id="jeruk"
+                                                    name="updatedFrName"
+                                                    value="Jeruk"
+                                                    defaultChecked={this.state.defaultSelectedFruit === "Jeruk"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="jeruk">Jeruk</label><br />
+                                                <input type="radio"
+                                                    id="nanas"
+                                                    name="updatedFrName"
+                                                    value="Nanas"
+                                                    defaultChecked={this.state.defaultSelectedFruit === "Nanas"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="nanas">Nanas</label><br />
+                                                <input type="radio"
+                                                    id="salak"
+                                                    name="updatedFrName"
+                                                    value="Salak"
+                                                    defaultChecked={this.state.defaultSelectedFruit === "Salak"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="salak">Salak</label><br />
+                                                <input type="radio"
+                                                    id="anggur"
+                                                    name="updatedFrName"
+                                                    value="Anggur"
+                                                    defaultChecked={this.state.defaultSelectedFruit === "Anggur"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="anggur">Anggur</label><br />
+                                                <input type="radio"
+                                                    id="strawberry"
+                                                    name="updatedFrName"
+                                                    value="Strawberry"
+                                                    defaultChecked={this.state.defaultSelectedFruit === "Strawberry"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="strawberry">Strawberry</label><br />
+                                                <input type="radio"
+                                                    id="mangga"
+                                                    name="updatedFrName"
+                                                    value="Mangga"
+                                                    defaultChecked={this.state.selectedFruit === "Mangga"}
+                                                    onChange={this.handleFruitChange}
+                                                />
+                                                <label htmlFor="mangga">Mangga</label><br />
+                                            </div>
+                                        </div>
+                                        <div className="headerOuter">
+                                            <label htmlFor="berat" className="headerInner"> Berat buah: </label>
+                                            < input className="inlineBlock" type="number" name="updatedBerat" id="berat" defaultValue={this.state.defaultFruitWeight} onChange={this.handleWeightChange} placeholder="dalam gram" required />
+                                        </div>
+                                        <button className="btn-update">Update</button>
+                                        <button className="btn-cancel" onClick={() => this.handleToggleEdit()}>Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        }
+                    </div>
+                </div>
             </div >
         )
     }

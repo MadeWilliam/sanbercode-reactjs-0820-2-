@@ -95,7 +95,7 @@ const DaftarBuah = () => {
   }
 
   return (
-    <>
+    <div className="outer container">
       <h1>Daftar Harga Buah</h1>
       <table>
         <thead>
@@ -117,10 +117,9 @@ const DaftarBuah = () => {
                   <td>{item.name}</td>
                   <td>{item.price}</td>
                   <td>{item.weight / 1000} Kg</td>
-                  <td style={{display: "flex", justifyContent: "space-evenly"}}>
-                    <button onClick={handleEdit} value={item.id}>Edit</button>
-                      &nbsp;
-                      <button onClick={handleDelete} value={item.id}>Delete</button>
+                  <td style={{ display: "flex", justifyContent: "space-evenly" }}>
+                    <button className="btn-edit" onClick={handleEdit} value={item.id}>Edit</button>
+                    <button className="btn-delete" onClick={handleDelete} value={item.id}>Delete</button>
                   </td>
                 </tr>
               )
@@ -132,7 +131,7 @@ const DaftarBuah = () => {
       <h1>Form Daftar Harga Buah</h1>
 
       <div style={{ width: "50%", margin: "0 auto", display: "block" }}>
-        <div style={{ border: "1px solid #aaa", padding: "20px" }}>
+        <div className="group" style={{ border: "1px solid #aaa", padding: "20px" }}>
           <form onSubmit={handleSubmit}>
             <label style={{ float: "left" }}>
               Nama:
@@ -152,13 +151,13 @@ const DaftarBuah = () => {
             <input style={{ float: "right" }} type="number" required name="weight" value={input.weight} onChange={handleChange} />
             <br />
             <br />
-            <div style={{ width: "100%", paddingBottom: "20px" }}>
-              <button style={{ float: "right" }}>submit</button>
+            <div style={{ display: "flex", justifyContent: "flex-end", width: "100%", paddingBottom: "20px" }}>
+              <button className="submit">submit</button>
             </div>
           </form>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

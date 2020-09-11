@@ -1,5 +1,17 @@
+body,
+.navbar {
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .outer {
-  max-width: 600px;
+  min-width: 600px;
   margin: 20px auto;
   padding: 0;
 }
@@ -43,11 +55,71 @@
 }
 
 .submit {
-  background: greenyellow;
+  font-weight: bold;
   border: 2px solid linear-gradient(to right, red, purple);
+  background-color: #fff;
   cursor: pointer;
-  border-radius: 30px;
+  margin-top: 40px;
+  -webkit-transform: translate(-0%, -50%);
+  transform: translate(-0%, -50%);
+  color: #6a5c0e;
+  text-decoration: none;
+  display: inline-block;
+  font-family: Montserrat;
+  text-transform: uppercase;
+  padding: 0.5em 2em;
+  border: 2px solid #8f8f01;
+  -webkit-transition: 0.02s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
+  transition: 0.02s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
 }
+
+.submit::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  background: #cecd24;
+  -webkit-transition: 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s cubic-bezier(0.1, 0, 0.1, 1);
+  transition: 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s cubic-bezier(0.1, 0, 0.1, 1);
+  z-index: -1;
+}
+
+.submit::after {
+  content: "";
+  display: inline-block;
+  background-image: url("https://image.flaticon.com/icons/png/128/109/109617.png");
+  position: absolute;
+  top: 0;
+  left: calc(100% - 3em);
+  right: 3em;
+  bottom: 0;
+  background-size: 1.5em;
+  background-repeat: no-repeat;
+  background-position: center;
+  -webkit-transition: right 0.3s cubic-bezier(0.1, 0, 0.1, 1);
+  transition: right 0.3s cubic-bezier(0.1, 0, 0.1, 1);
+}
+
+.submit:hover {
+  padding: 0.5em 3.5em 0.5em 0.5em;
+}
+
+.submit:hover::before {
+  left: calc(100% - 3em);
+  right: 0;
+  -webkit-transition: 0.3s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
+  transition: 0.3s cubic-bezier(0.1, 0, 0.1, 1), left 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
+}
+
+.submit:hover::after {
+  right: 0;
+  -webkit-transition: right 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
+  transition: right 0.3s 0.2s cubic-bezier(0.1, 0, 0.1, 1);
+}
+
 
 .btn-edit {
   min-width: 40%;
@@ -83,12 +155,36 @@
   border-radius: 30px;
 }
 
+.btn-light {
+  font-weight: bold;
+  background: white;
+  border: 2px solid linear-gradient(to right, green, purple);
+  cursor: pointer;
+  padding: 5px;
+  width: 120px;
+  font-size: large;
+  border-radius: 15px;
+}
+
+.btn-dark {
+  color: white;
+  font-weight: bold;
+  background: black;
+  border: 2px solid linear-gradient(to right, green, purple);
+  cursor: pointer;
+  font-size: large;
+  padding: 5px;
+  width: 120px;
+  border-radius: 15px;
+}
+
 table {
   width: 100%;
   border: 2px solid black;
 }
 
-th, td {
+th,
+td {
   padding: 8px;
 }
 
@@ -103,4 +199,38 @@ th:first-of-type {
 
 td {
   background-color: #FF7F50
+}
+
+.navbar {
+  background: black;
+  padding: 0px;
+  padding-right: 80px;
+}
+
+ul {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  justify-content: center;
+  font-size: x-large;
+}
+
+li {
+  display: block;
+  margin-top: 60px;
+}
+
+li:first-of-type {
+  margin-top: 10px;
+}
+
+li a {
+  color: inherit;
+  text-decoration: none;
+}
+
+li a:hover,
+li a:active {
+  border: 3px solid #555;
+  color: hotpink;
 }

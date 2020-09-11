@@ -29,7 +29,7 @@ function FormBuah() {
 							<label htmlFor="grape">Anggur</label><br />
 						</div>
 					</div>
-					<input type="submit" value="Kirim" className="submit"></input>
+					<button className="submit">submit</button>
 				</div>
 			</div>
 		</div>

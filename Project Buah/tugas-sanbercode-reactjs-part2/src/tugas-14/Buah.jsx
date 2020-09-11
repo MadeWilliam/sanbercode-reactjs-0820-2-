@@ -6,10 +6,12 @@ import TabelBuah from './TabelBuah.jsx';
 class Buah extends Component {
     render() {
         return (
-            <BuahProvider>
-                <TabelBuah />
-                <FormBuah />
-            </BuahProvider>
+            <div className="outer container">
+                <BuahProvider>
+                    <TabelBuah />
+                    <FormBuah />
+                </BuahProvider>
+            </div>
         );
     }
 }

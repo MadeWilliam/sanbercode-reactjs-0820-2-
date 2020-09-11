@@ -47,9 +47,8 @@ const TabelBuah = () => {
                                     <td>{item.price}</td>
                                     <td>{item.weight / 1000} Kg</td>
                                     <td style={{ display: "flex", justifyContent: "space-evenly" }}>
-                                        <button onClick={handleEdit} value={item.id}>Edit</button>
-                      &nbsp;
-                      <button onClick={handleDelete} value={item.id}>Delete</button>
+                                        <button className="btn-edit" onClick={handleEdit} value={item.id}>Edit</button>
+                                        <button className="btn-delete" onClick={handleDelete} value={item.id}>Delete</button>
                                     </td>
                                 </tr>
                             )

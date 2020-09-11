@@ -1,22 +1,28 @@
-import React, { Component } from 'react';
-import AppBuah from './AppBuah.jsx';
-import FormBuah2 from './tugas12/FormBuah2';
-import Countdown from './tugas11/Countdown.jsx';
+import React, { useState, Component } from 'react';
 import './App.css';
-import DaftarBuah from './tugas-14/Buah.jsx';
-import Buah from './tugas-14/Buah.jsx';
+import Navbar from './tugas-15/Navbar';
+import Routes from './tugas-15/Routes';
+import { ThemeContext, themes } from './tugas-15/ThemeContext';
+import { BrowserRouter as Router } from 'react-router-dom'
 
-class App extends Component {
-    render() {
-        return (
-            <div className="outer container">
-                {/* <Countdown/> */}
-                {/* <AppBuah/> */}
-                {/* <FormBuah2 /> */}
-                <Buah />
-            </div>
-        );
-    }
+
+function App() {
+    const [selectedTheme, setSelectedTheme] = useState(themes.dark)
+    return (
+        <ThemeContext.Provider value={{
+            theme: selectedTheme,
+            setSelectedTheme: setSelectedTheme
+        }}>
+            <Router>
+                <div style={{display: "flex"}}>
+                    <Navbar />
+                    <div className="outer">
+                        <Routes />
+                    </div>
+                </div>
+            </Router>
+        </ThemeContext.Provider>
+    );
 }
 
 export default App;

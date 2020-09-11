@@ -1,5 +1,4 @@
 import React, {Component} from "react"
-import "./DaftarBuah.css"
 
 class DaftarBuah extends Component{
 
